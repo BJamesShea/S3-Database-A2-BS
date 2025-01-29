@@ -1,18 +1,16 @@
 import java.util.Scanner;
 
 public class FilmTheatre {
-    private static int ROWS = 5;
-    private static int COLUMNS = 5;
+    private static final int ROWS = 5;
+    private static final int COLUMNS = 5;
     private static char[][] seats = new char[ROWS][COLUMNS];
 
-
-    public static void main (String[] args) {
-        Scanner scanner = new Scanner (System.in);
-
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         initSeats();
 
         while (true) {
-            System.out.println("Film Theatre seat reservation system!");
+            System.out.println("\nFilm Theatre Seat Reservation System");
             System.out.println("1. Show seats");
             System.out.println("2. Reserve a seat");
             System.out.println("3. Cancel a reservation");
@@ -24,22 +22,18 @@ public class FilmTheatre {
                 case 1:
                     showSeats();
                     break;
-
                 case 2:
                     reserveSeat(scanner);
                     break;
-
                 case 3:
                     cancelReservation(scanner);
                     break;
-
                 case 4:
                     System.out.println("Exiting the program...");
                     scanner.close();
                     return;
-
                 default:
-                    System.out.println("Invalid. Try again.");
+                    System.out.println("Invalid choice. Try again.");
             }
         }
     }
@@ -52,11 +46,16 @@ public class FilmTheatre {
         }
     }
 
-
     private static void showSeats() {
-        System.out.println("  1 2 3 4 5");
+        System.out.println("\nSeating Chart:");
+        System.out.print("  ");
+        for (int i = 0; i < COLUMNS; i++) {
+            System.out.print((i + 1) + " ");
+        }
+        System.out.println();
+
         for (int i = 0; i < ROWS; i++) {
-            System.out.print(i + 1 + " ");
+            System.out.print((i + 1) + " ");
             for (int j = 0; j < COLUMNS; j++) {
                 System.out.print(seats[i][j] + " ");
             }
@@ -64,13 +63,11 @@ public class FilmTheatre {
         }
     }
 
-
-
     private static void reserveSeat(Scanner scanner) {
-        System.out.print("Enter row number (0-" + (ROWS - 1) + "): ");
-        int row = scanner.nextInt();
-        System.out.print("Enter column number (0-" + (COLUMNS - 1) + "): ");
-        int col = scanner.nextInt();
+        System.out.print("Enter row number (1-" + ROWS + "): ");
+        int row = scanner.nextInt() - 1;
+        System.out.print("Enter column number (1-" + COLUMNS + "): ");
+        int col = scanner.nextInt() - 1;
 
         if (isValidSeat(row, col)) {
             if (seats[row][col] == 'O') {
@@ -85,12 +82,11 @@ public class FilmTheatre {
         }
     }
 
-
     private static void cancelReservation(Scanner scanner) {
-        System.out.print("Enter row number (0-" + (ROWS - 1) + ") to cancel: ");
-        int row = scanner.nextInt();
-        System.out.print("Enter column number (0-" + (COLUMNS - 1) + ") to cancel: ");
-        int col = scanner.nextInt();
+        System.out.print("Enter row number (1-" + ROWS + ") to cancel: ");
+        int row = scanner.nextInt() - 1;
+        System.out.print("Enter column number (1-" + COLUMNS + ") to cancel: ");
+        int col = scanner.nextInt() - 1;
 
         if (isValidSeat(row, col)) {
             if (seats[row][col] == 'X') {
@@ -112,7 +108,7 @@ public class FilmTheatre {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
                 if (seats[i][j] == 'O') {
-                    System.out.println("Available seat suggestion: Row " + i + ", Column " + j);
+                    System.out.println("Available seat suggestion: Row " + (i + 1) + ", Column " + (j + 1));
                     return;
                 }
             }
@@ -120,14 +116,3 @@ public class FilmTheatre {
         System.out.println("This showing is now sold out, please choose another time.");
     }
 }
-
-
-
-
-
-
-
-
-
-
-
