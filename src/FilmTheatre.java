@@ -53,6 +53,18 @@ public class FilmTheatre {
     }
 
 
+    private static void showSeats() {
+        System.out.println("  1 2 3 4 5");
+        for (int i = 0; i < ROWS; i++) {
+            System.out.print(i + 1 + " ");
+            for (int j = 0; j < COLUMNS; j++) {
+                System.out.print(seats[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+
 
 
 
