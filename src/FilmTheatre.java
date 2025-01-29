@@ -66,20 +66,68 @@ public class FilmTheatre {
 
 
 
+    private static void reserveSeat(Scanner scanner) {
+        System.out.print("Enter row number (0-" + (ROWS - 1) + "): ");
+        int row = scanner.nextInt();
+        System.out.print("Enter column number (0-" + (COLUMNS - 1) + "): ");
+        int col = scanner.nextInt();
+
+        if (isValidSeat(row, col)) {
+            if (seats[row][col] == 'O') {
+                seats[row][col] = 'X';
+                System.out.println("Seat reserved successfully!");
+            } else {
+                System.out.println("Seat is already taken! Suggesting an available seat...");
+                suggestAvailableSeat();
+            }
+        } else {
+            System.out.println("Invalid seat selection. Please enter a valid row and column.");
+        }
+    }
 
 
+    private static void cancelReservation(Scanner scanner) {
+        System.out.print("Enter row number (0-" + (ROWS - 1) + ") to cancel: ");
+        int row = scanner.nextInt();
+        System.out.print("Enter column number (0-" + (COLUMNS - 1) + ") to cancel: ");
+        int col = scanner.nextInt();
 
+        if (isValidSeat(row, col)) {
+            if (seats[row][col] == 'X') {
+                seats[row][col] = 'O';
+                System.out.println("Reservation canceled!");
+            } else {
+                System.out.println("Seat was not reserved.");
+            }
+        } else {
+            System.out.println("Invalid seat selection.");
+        }
+    }
 
+    private static boolean isValidSeat(int row, int col) {
+        return row >= 0 && row < ROWS && col >= 0 && col < COLUMNS;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
+    private static void suggestAvailableSeat() {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                if (seats[i][j] == 'O') {
+                    System.out.println("Available seat suggestion: Row " + i + ", Column " + j);
+                    return;
+                }
+            }
+        }
+        System.out.println("This showing is now sold out, please choose another time.");
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
